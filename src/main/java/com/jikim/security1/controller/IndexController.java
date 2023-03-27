@@ -1,11 +1,23 @@
 package com.jikim.security1.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.jikim.security1.model.User;
+import com.jikim.security1.repository.UserRepository;
 
 @Controller // view를 리턴하겠다.
 public class IndexController {
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	// localhost:8080/
 	// localhost:8080
@@ -32,19 +44,25 @@ public class IndexController {
 	}
 
 	// 스프링 시큐리티가 해당 주소를 낚아챔! -> SecurityConfig 파일에서 작동하지 않게 함.
-	@GetMapping("/login")
-	public @ResponseBody String login() {
-		return "login";
+	@GetMapping("/loginForm")
+	public String login() {
+		return "loginForm";
 	}
 
-	@GetMapping("/join")
-	public @ResponseBody String join() {
-		return "join";
+	@GetMapping("/joinForm")
+	public String joinForm() {
+		return "joinForm";
 	}
 
-	@GetMapping("/joinProc")
-	public @ResponseBody String joinProc() {
-		return "회원가입 완료됨";
+	@PostMapping("/join")
+	public String join(User user) {
+		System.out.println();
+		user.setRole("ROLE_USER");
+		String rawPassword = user.getPassword();
+		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+		user.setPassword(encPassword);
+		userRepository.save(user);
+		return "redirect:/loginForm";
 	}
 
 }
