@@ -23,14 +23,17 @@ import lombok.Data;
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
 	private User user; // 콤포지션
+	private Map<String, Object> attributes;
 
-	public PrincipalDetails(User user) {
+	// OAuth 로그인
+	public PrincipalDetails(User user, Map<String, Object> attributes) {
 		this.user = user;
+		this.attributes = attributes;
 	}
 
-	@Override
-	public Map<String, Object> getAttributes() {
-		return null;
+	// 일반 로그인
+	public PrincipalDetails(User user) {
+		this.user = user;
 	}
 
 	// 해당 User의 권한을 리턴하는 곳!
@@ -78,6 +81,11 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 		// 현재시간 - 로그인시간 => 1년을 초과하면 return false;
 
 		return true;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
 	}
 
 	@Override
