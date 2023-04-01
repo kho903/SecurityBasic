@@ -1,3 +1,6 @@
+### 암호화 ###
+src/test/java/com/jikim/security1/config/JasyptConfigTest.java
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
