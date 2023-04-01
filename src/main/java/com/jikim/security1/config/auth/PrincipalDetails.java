@@ -1,4 +1,4 @@
-package com.jikim.security1.auth;
+package com.jikim.security1.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
