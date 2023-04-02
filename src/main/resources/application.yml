@@ -16,7 +16,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none #create update none
+      ddl-auto: create #create update none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
@@ -31,6 +31,12 @@ spring:
             scope:
               - email
               - profile
+          facebook:
+            client-id: ENC(lHTDfpahH04gDyVOnlEz9jZLrLVsDj9u)
+            client-secret: ENC(/TfJWjMycHAPwxeHl7oVSWMGBmfjSgzkGGcfjX9FKPbZ1t4oxJ3OlpJJN2bFuDeZ)
+            scope:
+              - email
+              - public_profile
 
 jasypt:
   encryptor:
